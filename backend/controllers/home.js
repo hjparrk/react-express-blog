@@ -1,5 +1,14 @@
-const home = (req, res) => {
-  res.json({ data: "test data" });
-};
+const prisma = require("../models/prisma");
 
-module.exports = { home };
+/**
+ * @param {*} req
+ * @param {*} res
+ * @returns {posts} posts
+ */
+async function view(req, res) {
+  const posts = await prisma.post.findMany();
+
+  return res.json({ posts: posts });
+}
+
+module.exports = { view };
