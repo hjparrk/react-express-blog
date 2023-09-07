@@ -118,7 +118,7 @@ async function kakaoAuthCallback(req, res) {
     if (access_token) {
       const response = await axios.get("https://kapi.kakao.com/v2/user/me", {
         headers: {
-          "content-type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/x-www-form-urlencoded",
           Authorization: `Bearer ${access_token}`,
         },
       });
@@ -129,6 +129,7 @@ async function kakaoAuthCallback(req, res) {
 
       req.session.username = username;
       req.session.email = email;
+      req.session.token = access_token;
       return res.redirect("http://localhost:3000/");
     } else {
       return res.status(404).json({ message: "Access Error" });
