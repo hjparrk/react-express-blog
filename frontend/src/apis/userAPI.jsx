@@ -1,10 +1,13 @@
 import axios from "axios";
 
-const loginUserAPI = async (username, password) => {
-  console.log(username);
-  console.log(password);
+const fetchKeysAPI = async () => {
+  const response = await axios.get("/api/kakao-auth");
+  return response;
+};
+
+const loginUserAPI = async (email, password) => {
   const response = await axios.post("/api/login", {
-    username: username,
+    email: email,
     password: password,
   });
 
@@ -21,4 +24,4 @@ const registerUserAPI = async (username, password, confirmPassword) => {
   return response;
 };
 
-export { loginUserAPI, registerUserAPI };
+export { loginUserAPI, registerUserAPI, fetchKeysAPI };

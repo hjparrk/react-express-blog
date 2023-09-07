@@ -4,7 +4,7 @@ import axios from "axios";
 const getSomething = async () => {
   const response = await axios.get("/api/");
   // const response = await axios.get("/");
-  console.log(response);
+  return response;
 };
 
 const Home = () => {
