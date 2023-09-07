@@ -1,10 +1,5 @@
 import axios from "axios";
 
-const getUserAPI = async () => {
-  const response = await axios.get("/api/");
-  return response;
-};
-
 const loginUserAPI = async (email, password) => {
   const response = await axios.post("/api/login", {
     email: email,
@@ -25,10 +20,9 @@ const registerUserAPI = async (username, password, confirmPassword) => {
 };
 
 const kakaoAuthAPI = async () => {
-  const response = await axios.get("/api/kakao-auth/");
+  const response = await axios.get("/api/kakao-auth/login");
   const data = await response.data;
-
   return data;
 };
 
-export { getUserAPI, loginUserAPI, registerUserAPI, kakaoAuthAPI };
+export { loginUserAPI, registerUserAPI, kakaoAuthAPI };

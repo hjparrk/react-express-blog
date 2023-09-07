@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerUserAPI } from "../apis/userAPI";
+import { registerUserAPI } from "../apis/authAPI";
 
 const registerUser = async (username, password, confirmPassword) => {
   const response = await registerUserAPI(username, password, confirmPassword);
