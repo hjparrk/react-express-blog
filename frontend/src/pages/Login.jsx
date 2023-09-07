@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUserAPI, fetchKeysAPI } from "../apis/userAPI";
+import { loginUserAPI, kakaoAuthAPI } from "../apis/userAPI";
 import kakao_login_large_narrow from "../assets/images/kakao_login_medium_narrow.png";
 
 const loginUser = async (email, password) => {
@@ -9,36 +9,16 @@ const loginUser = async (email, password) => {
   return data;
 };
 
-const fetKeys = async () => {
-  const response = await fetchKeysAPI();
-  const data = await response.data;
-  return data;
+const kakaoAuthUrl = async () => {
+  const response = await kakaoAuthAPI();
+  return response;
 };
 
 const Login = () => {
-  const [CLIENT_ID, setCLIENT_ID] = useState();
-  const [clientSecret, setclientSecret] = useState();
-  const [REDIRECT_URI, setREDIRECT_URI] = useState();
-  const [KAKAO_AUTH_URL, setKAKAO_AUTH_URL] = useState();
-
   const emailRef = useRef();
   const passwordRef = useRef();
 
   const navigation = useNavigate();
-
-  useEffect(() => {
-    if (CLIENT_ID && clientSecret && REDIRECT_URI) {
-      setKAKAO_AUTH_URL(
-        `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`
-      );
-    }
-  }, [CLIENT_ID, clientSecret, REDIRECT_URI]);
-
-  useEffect(() => {
-    if (KAKAO_AUTH_URL) {
-      window.location.href = KAKAO_AUTH_URL;
-    }
-  }, [KAKAO_AUTH_URL]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,7 +35,7 @@ const Login = () => {
 
   return (
     <div className="flex w-full h-screen items-center justify-center flex-col gap-4">
-      {/* <form className="flex flex-col w-40 gap-4">
+      <form className="flex flex-col w-40 gap-4">
         <div>
           <label htmlFor="username">username</label>
           <input
@@ -73,13 +53,11 @@ const Login = () => {
           />
         </div>
         <button onClick={handleSubmit}>Login</button>
-      </form> */}
+      </form>
       <button
         onClick={async () => {
-          const { clientID, clientSecret, redirectURI } = await fetKeys();
-          setCLIENT_ID(clientID);
-          setclientSecret(clientSecret);
-          setREDIRECT_URI(redirectURI);
+          const url = await kakaoAuthUrl();
+          window.location.href = url;
         }}
       >
         <img src={kakao_login_large_narrow} alt="Kakao Login" />

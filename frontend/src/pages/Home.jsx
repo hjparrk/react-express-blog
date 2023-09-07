@@ -1,20 +1,39 @@
-import { React, useEffect } from "react";
-import axios from "axios";
+import { React, useEffect, useState } from "react";
+import { getUserAPI } from "../apis/userAPI";
 
-const getSomething = async () => {
-  const response = await axios.get("/api/");
-  // const response = await axios.get("/");
-  return response;
+const getUser = async () => {
+  const response = await getUserAPI();
+  const data = await response.data;
+  return data;
 };
 
 const Home = () => {
+  const [username, setUsername] = useState();
+  const [email, setEmail] = useState();
+
   useEffect(() => {
-    getSomething();
+    getUser()
+      .then((res) => {
+        return res;
+      })
+      .then((user) => {
+        setUsername(user.username);
+        setEmail(user.email);
+      });
   }, []);
+
   return (
-    <div>
-      <h1>Home</h1>
-      <h1>Page</h1>
+    <div className="flex flex-col w-full h-screen items-center justify-center gap-10">
+      <div className="flex flex-row gap-2">
+        <h1>Home</h1>
+        <h1>Page</h1>
+      </div>
+      {username && email && (
+        <div className="text-center">
+          <h1>{username}</h1>
+          <h1>{email}</h1>
+        </div>
+      )}
     </div>
   );
 };
