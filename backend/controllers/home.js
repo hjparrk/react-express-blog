@@ -7,8 +7,8 @@ const prisma = require("../models/prisma");
  */
 async function view(req, res) {
   const posts = await prisma.post.findMany();
-  return res.json({ data: "test" });
-  // return res.json({ posts: posts });
+  const { username, email } = req.session;
+  return res.status(200).json({ username, email });
 }
 
 module.exports = { view };

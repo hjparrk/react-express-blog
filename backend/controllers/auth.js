@@ -1,7 +1,7 @@
 const util = require("util");
 const crypto = require("crypto");
-const axios = require("axios");
 const prisma = require("../models/prisma");
+const axios = require("axios");
 
 const pbkdf2Promise = util.promisify(crypto.pbkdf2);
 
@@ -88,13 +88,12 @@ async function register(req, res) {
 
 function kakaoAuth(req, res) {
   const kakao = {
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    redirectURI: process.env.REDIRECT_URI,
+    clientID: "f0a25cd2de92a5da585af071a0fb8aa1",
+    clientSecret: "WOkWvxVfFftJzantJ7GtQeNXE3VAAdye",
+    redirectURI: "http://localhost:8000/api/kakao-auth/callback",
   };
-
-  // const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
-  return res.json(kakao);
+  const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${kakao.clientID}&redirect_uri=${kakao.redirectURI}`;
+  return res.status(200).json(kakaoAuthUrl);
 }
 
 async function kakaoAuthCallback(req, res) {
@@ -116,7 +115,6 @@ async function kakaoAuthCallback(req, res) {
     );
     const data = await response.data;
     const { token_type, access_token, refresh_token } = data;
-
     if (access_token) {
       const response = await axios.get("https://kapi.kakao.com/v2/user/me", {
         headers: {
@@ -128,9 +126,10 @@ async function kakaoAuthCallback(req, res) {
       const user = await response.data.kakao_account;
       const username = user.profile.nickname;
       const email = user.email;
+
       req.session.username = username;
       req.session.email = email;
-      return res.status(200).json({ message: "success" });
+      return res.redirect("http://localhost:3000/");
     } else {
       return res.status(404).json({ message: "Access Error" });
     }
