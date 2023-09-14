@@ -4,7 +4,7 @@ const session = require("express-session");
 
 const homeRoutes = require("./routes/homeRoutes");
 const authRoutes = require("./routes/authRoutes");
-
+const postRoutes = require("./routes/postRoutes")
 dotenv.config();
 
 const PORT = process.env.PORT;
@@ -25,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 // routes
 app.use("/api", homeRoutes);
 app.use("/api", authRoutes);
+app.use("/api", postRoutes);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
