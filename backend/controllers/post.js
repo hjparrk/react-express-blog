@@ -30,11 +30,24 @@ async function store(req, res) {
             },
         }
     })
-    
+
     return res.status(200).json(post)
 }
 
-async function view(req, res) {}
+async function view(req, res) {
+
+    const post = await prisma.post.findUnique({
+        where: {
+            id: 4
+        }
+    })
+
+
+    return res.status(200).json(post)
+}
+
+async function viewAll(req,res) {
+}
 
 async function update(req, res) {}
 
