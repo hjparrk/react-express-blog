@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUserAPI, kakaoAuthAPI } from "../apis/authAPI";
-import kakao_login_large_narrow from "../assets/images/kakao_login_medium_narrow.png";
+import kakao_login_large_narrow from "../assets/images/kakao/kakao_login_medium_narrow.png";
 
 const loginUser = async (email, password) => {
   const response = await loginUserAPI(email, password);
