@@ -20,7 +20,7 @@ const Home = () => {
   return (
     <>
       <Background>
-        <div className="flex flex-col w-full h-full pt-[15%] gap-6 items-center justify-start">
+        <div className="flex flex-col w-full h-full pt-[5%] gap-6 items-center justify-start">
           <div className="grid grid-cols-4 gap-8">
             {posts?.map((post) => (
               <PostCard key={post.id} post={post} />

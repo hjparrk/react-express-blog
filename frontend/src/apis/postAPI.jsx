@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-const storePostAPI = async (content) => {
-  const title = 'React-Express blog';
+const storePostAPI = async (data) => {
   const tag = 'Express';
-  const category = 'Web Development';
+  const { title, category, content } = data;
 
   const response = await axios.post('/api/posts', {
     title: title,

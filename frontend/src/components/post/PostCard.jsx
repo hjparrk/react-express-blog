@@ -14,7 +14,7 @@ const PostCard = (props) => {
   return (
     <>
       <div
-        className="w-full h-full bg-amber-50 bg-opacity-20 p-3 shadow-xl shadow-gray-300 gap-4  flex flex-col transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300"
+        className="w-56 h-60 justify-between bg-amber-50 bg-opacity-20 p-3 shadow-xl shadow-gray-300 gap-4  flex flex-col transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300"
         onClick={handleRedirectToPost}
       >
         <h1>{post.title}</h1>
