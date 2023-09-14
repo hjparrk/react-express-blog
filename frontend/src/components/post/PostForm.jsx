@@ -47,6 +47,11 @@ const PostForm = () => {
     setCategory(e.target.value);
   }
 
+  async function handleImageUpload(imageFile) {
+    const image = await imageFile;
+    console.log(image);
+  }
+
   return (
     <div className="flex flex-col w-[90%] h-[90%] gap-2">
       <div className="flex justify-end">
@@ -77,6 +82,7 @@ const PostForm = () => {
         className="h-full"
         ref={markdownRef}
         renderHTML={(text) => MarkdownParser.render(text)}
+        onImageUpload={handleImageUpload}
       />
     </div>
   );
