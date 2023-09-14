@@ -1,14 +1,16 @@
 import React, {useRef} from 'react';
+import {useNavigate} from 'react-router-dom'
 import MarkdownIt from 'markdown-it'
 import MarkdownEditor from 'react-markdown-editor-lite'
 import 'react-markdown-editor-lite/lib/index.css'
 import hljs from "highlight.js";
 import "highlight.js/styles/atom-one-dark.css"
-import {createPostAPI} from "../../apis/postAPI";
+import {storePostAPI} from "../../apis/postAPI";
 
 const PostForm = () => {
 
     const markdownRef = useRef()
+    const navigation = useNavigate()
 
     const MarkdownParser = new MarkdownIt({
         highlight: function (str, lang) {
@@ -23,7 +25,7 @@ const PostForm = () => {
     });
 
     async function createPost (content) {
-        const response = await createPostAPI(content)
+        const response = await storePostAPI(content)
         return response
     }
 
@@ -35,6 +37,7 @@ const PostForm = () => {
             const markdownContent = markdownRef.current.getMdValue()
             console.log(markdownContent)
             const response = await createPost(markdownContent)
+            navigation("/")
         }
     }
 
